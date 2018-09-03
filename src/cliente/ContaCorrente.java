@@ -8,14 +8,31 @@ import java.util.Scanner;
 
 public class ContaCorrente {
 	
-	public String nomeCli;
+	private String nomeCli;
 	private int cpfCli;
 	private String enderecoCli;
 	private Date nascimentoCli;
 	private String telefoneCli;
 	private String senhaCli;
 	private double saldoCorrente;
-	private double saldoPoupanca;
+	private Investimento invest[];
+	//private double saldoRendaFixa;
+	//private double saldoPoupanca;
+
+	
+	public ContaCorrente(String nome, int cpf, String end, Date nascimento, String tel, String senha, double saldoC, double saldoP) {
+		// Construtor
+		setNomeCli(nome);
+		setCpfCli(cpf);
+		setEnderecoCli(end);
+		setNascimentoCli(nascimento);
+		setTelefoneCli(tel);
+		setSenhaCli(senha);
+		setSaldoCorrente(saldoC);
+		setSaldoPoupanca(saldoP);
+		
+	}
+	
 	public int getCpfCli() {
 		return cpfCli;
 	}
@@ -37,30 +54,24 @@ public class ContaCorrente {
 
 
 	public double getSaldoPoupanca() {
-		return saldoPoupanca;
+			return invest[0].getSaldo();
 	}
 
 
 	public void setSaldoPoupanca(double saldoPoupanca) {
-		this.saldoPoupanca = saldoPoupanca;
+		//this.saldoPoupanca = saldoPoupanca;
+		invest[0]= new Investimento(saldoPoupanca,1);
 	}
 
-
-	public double getSaldoRendaFixa() {
-		return saldoRendaFixa;
-	}
-
-
-	public void setSaldoRendaFixa(double saldoRendaFixa) {
-		this.saldoRendaFixa = saldoRendaFixa;
-	}
-
-	private double saldoRendaFixa;
-
-	public ContaCorrente() {
-		// Construtor
-	}
-
+//
+//	public double getSaldoRendaFixa() {
+//		return saldoRendaFixa;
+//	}
+//
+//
+//	public void setSaldoRendaFixa(double saldoRendaFixa) {
+//		this.saldoRendaFixa = saldoRendaFixa;
+//	}
 
 	public String getNomeCli() {
 		return nomeCli;
@@ -111,9 +122,9 @@ public class ContaCorrente {
 		this.senhaCli = senhaCli;
 	}
 	
-	public void setSenhaCli(double saldoCli) {
-		this.saldoCli = saldoCli;
-	}
+	//public void setSenhaCli(double saldoCli) {
+	//	this.saldoCli = saldoCli;
+	//}
 	
 
 }
