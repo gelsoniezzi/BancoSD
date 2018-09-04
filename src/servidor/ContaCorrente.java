@@ -1,4 +1,4 @@
-package cliente;
+package servidor;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -11,7 +11,7 @@ public class ContaCorrente {
 	private String nomeCli;
 	private int cpfCli;
 	private String enderecoCli;
-	private Date nascimentoCli;
+	private String nascimentoCli;
 	private String telefoneCli;
 	private String senhaCli;
 	private double saldoCorrente;
@@ -20,7 +20,7 @@ public class ContaCorrente {
 	//private double saldoPoupanca;
 
 	
-	public ContaCorrente(String nome, int cpf, String end, Date nascimento, String tel, String senha, double saldoC, double saldoP) {
+	public ContaCorrente(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) {
 		// Construtor
 		setNomeCli(nome);
 		setCpfCli(cpf);
@@ -93,12 +93,12 @@ public class ContaCorrente {
 	}
 
 
-	public Date getNascimentoCli() {
+	public String getNascimentoCli() {
 		return nascimentoCli;
 	}
 
 
-	public void setNascimentoCli(Date nascimentoCli) {
+	public void setNascimentoCli(String nascimentoCli) {
 		this.nascimentoCli = nascimentoCli;
 	}
 
