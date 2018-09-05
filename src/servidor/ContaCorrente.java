@@ -28,7 +28,7 @@ public class ContaCorrente {
 		setNascimentoCli(nascimento);
 		setTelefoneCli(tel);
 		setSenhaCli(senha);
-		setSaldoCorrente(saldoC);
+		setSaldoCorrente(0.0);
 		setSaldoPoupanca(saldoP);
 		
 	}
@@ -44,6 +44,9 @@ public class ContaCorrente {
 
 
 	public double getSaldoCorrente() {
+		
+		System.out.println("Conta CPF: " + cpfCli + " saldo: " + this.saldoCorrente);
+        System.out.println("---------------------------------------------");
 		return saldoCorrente;
 	}
 
@@ -125,6 +128,20 @@ public class ContaCorrente {
 	//public void setSenhaCli(double saldoCli) {
 	//	this.saldoCli = saldoCli;
 	//}
+	
+	public void fazerDeposito(double valor) {
+	    
+        this.saldoCorrente += valor;
+        System.out.println("Conta CPF: " + this.cpfCli + " depósito: " + valor);
+        System.out.println("---------------------------------------------");
+    }
+    
+    public synchronized void fazerSaque(double valor) {
+    
+        this.saldoCorrente -= saldo;
+        System.out.println("Conta CPF: " + this.cpfCli + " withdraw: " + valor);
+        System.out.println("---------------------------------------------");
+    }
 	
 
 }
