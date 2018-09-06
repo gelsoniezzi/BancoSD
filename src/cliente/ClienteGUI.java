@@ -18,6 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JCheckBox;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
 
 public class ClienteGUI {
 
@@ -36,6 +38,17 @@ public class ClienteGUI {
 	private JTextField txtTelefone;
 	private JTextField txtValor;
 	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField txtNmeroDaConta;
+	private JTextField textField_3;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField txtR_3;
+	private JTextField textField_4;
+	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
 
 	/**
 	 * Launch the application.
@@ -86,6 +99,7 @@ public class ClienteGUI {
 		);
 		
 		JPanel panelMenu = new JPanel();
+		panelMenu.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnCriarConta = new JButton("Criar conta");
 		btnCriarConta.addActionListener(new ActionListener() {
@@ -176,6 +190,7 @@ public class ClienteGUI {
 		panelMenu.setLayout(gl_panelMenu);
 		
 		JPanel panelTela = new JPanel();
+		panelTela.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GroupLayout gl_panelPrincipal = new GroupLayout(panelPrincipal);
 		gl_panelPrincipal.setHorizontalGroup(
 			gl_panelPrincipal.createParallelGroup(Alignment.LEADING)
@@ -514,6 +529,264 @@ public class ClienteGUI {
 					.addContainerGap(104, Short.MAX_VALUE))
 		);
 		panelDeposito.setLayout(gl_panelDeposito);
+		
+		JPanel panelTransferencia = new JPanel();
+		panelTela.add(panelTransferencia, "name_141669587370145");
+		
+		JLabel lblTransferencia = new JLabel("Transferencia");
+		lblTransferencia.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		textField_2 = new JTextField();
+		textField_2.setText("Valor");
+		textField_2.setColumns(10);
+		
+		JButton btnTransferir = new JButton("Transferir");
+		
+		JLabel lblSaldo_2 = new JLabel("Saldo");
+		
+		JLabel lblDestinatrio = new JLabel("Destinatário");
+		
+		txtNmeroDaConta = new JTextField();
+		txtNmeroDaConta.setText("Número da Conta");
+		txtNmeroDaConta.setColumns(10);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		
+		JButton btnConsultar = new JButton("Consultar");
+		GroupLayout gl_panelTransferencia = new GroupLayout(panelTransferencia);
+		gl_panelTransferencia.setHorizontalGroup(
+			gl_panelTransferencia.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelTransferencia.createSequentialGroup()
+					.addGroup(gl_panelTransferencia.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelTransferencia.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelTransferencia.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblTransferencia, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+								.addComponent(btnTransferir, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+								.addGroup(gl_panelTransferencia.createSequentialGroup()
+									.addGap(6)
+									.addComponent(lblSaldo_2)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+									.addComponent(btnConsultar))))
+						.addGroup(Alignment.TRAILING, gl_panelTransferencia.createSequentialGroup()
+							.addGap(12)
+							.addGroup(gl_panelTransferencia.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+								.addGroup(gl_panelTransferencia.createSequentialGroup()
+									.addComponent(lblDestinatrio)
+									.addGap(18)
+									.addComponent(txtNmeroDaConta, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)))))
+					.addContainerGap())
+		);
+		gl_panelTransferencia.setVerticalGroup(
+			gl_panelTransferencia.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelTransferencia.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblTransferencia, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addGap(46)
+					.addGroup(gl_panelTransferencia.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSaldo_2)
+						.addComponent(btnConsultar))
+					.addGap(18)
+					.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panelTransferencia.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtNmeroDaConta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDestinatrio))
+					.addGap(62)
+					.addComponent(btnTransferir)
+					.addContainerGap(104, Short.MAX_VALUE))
+		);
+		panelTransferencia.setLayout(gl_panelTransferencia);
+		
+		JPanel panelPoupanca = new JPanel();
+		panelTela.add(panelPoupanca, "name_142432910411605");
+		
+		JLabel lblSimulaoDeInvestimento = new JLabel("Investimento na poupança");
+		lblSimulaoDeInvestimento.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblSaldoAtual = new JLabel("Investimento");
+		
+		JLabel lblApsMeses = new JLabel("Após 3 meses");
+		
+		JLabel lblMes = new JLabel("Após 6 meses");
+		
+		textField_5 = new JTextField();
+		textField_5.setText("R$");
+		textField_5.setColumns(10);
+		
+		textField_6 = new JTextField();
+		textField_6.setText("R$");
+		textField_6.setColumns(10);
+		
+		textField_7 = new JTextField();
+		textField_7.setText("R$");
+		textField_7.setColumns(10);
+		
+		txtR_3 = new JTextField();
+		txtR_3.setText("R$");
+		txtR_3.setColumns(10);
+		
+		JLabel lblApsMeses_1 = new JLabel("Após 12 meses");
+		
+		JButton btnNewButton = new JButton("Calcular");
+		GroupLayout gl_panelPoupanca = new GroupLayout(panelPoupanca);
+		gl_panelPoupanca.setHorizontalGroup(
+			gl_panelPoupanca.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelPoupanca.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPoupanca.createSequentialGroup()
+							.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblSimulaoDeInvestimento, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+								.addGroup(gl_panelPoupanca.createSequentialGroup()
+									.addGap(4)
+									.addComponent(lblSaldoAtual)
+									.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+									.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addContainerGap())
+						.addGroup(gl_panelPoupanca.createSequentialGroup()
+							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_panelPoupanca.createSequentialGroup()
+							.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblApsMeses_1)
+								.addComponent(lblMes)
+								.addComponent(lblApsMeses))
+							.addGap(17)
+							.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField_6, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+								.addComponent(textField_7, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+								.addComponent(txtR_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+							.addGap(10))))
+		);
+		gl_panelPoupanca.setVerticalGroup(
+			gl_panelPoupanca.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPoupanca.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblSimulaoDeInvestimento, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addGap(46)
+					.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.BASELINE)
+						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSaldoAtual))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton)
+					.addGap(18)
+					.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelPoupanca.createSequentialGroup()
+							.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblApsMeses))
+							.addGap(40)
+							.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtR_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblApsMeses_1)))
+						.addGroup(gl_panelPoupanca.createSequentialGroup()
+							.addGap(34)
+							.addGroup(gl_panelPoupanca.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblMes))))
+					.addContainerGap(120, Short.MAX_VALUE))
+		);
+		panelPoupanca.setLayout(gl_panelPoupanca);
+		
+		JPanel panelRendaFixa = new JPanel();
+		panelTela.add(panelRendaFixa, "name_143002121008904");
+		
+		textField_4 = new JTextField();
+		textField_4.setText("R$");
+		textField_4.setColumns(10);
+		
+		JLabel label = new JLabel("Após 12 meses");
+		
+		JLabel lblInvestimentoNaRenda = new JLabel("Investimento na Renda Fixa");
+		lblInvestimentoNaRenda.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel label_4 = new JLabel("Saldo atual");
+		
+		JLabel label_5 = new JLabel("Após 3 meses");
+		
+		textField_8 = new JTextField();
+		textField_8.setText("R$");
+		textField_8.setColumns(10);
+		
+		textField_9 = new JTextField();
+		textField_9.setText("R$");
+		textField_9.setColumns(10);
+		
+		JLabel label_6 = new JLabel("Após 6 meses");
+		
+		textField_10 = new JTextField();
+		textField_10.setText("R$");
+		textField_10.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton("Calcular");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GroupLayout gl_panelRendaFixa = new GroupLayout(panelRendaFixa);
+		gl_panelRendaFixa.setHorizontalGroup(
+			gl_panelRendaFixa.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelRendaFixa.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblInvestimentoNaRenda, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+						.addGroup(gl_panelRendaFixa.createSequentialGroup()
+							.addGap(4)
+							.addComponent(label_4)
+							.addGap(44)
+							.addComponent(textField_8, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+					.addContainerGap())
+				.addGroup(Alignment.LEADING, gl_panelRendaFixa.createSequentialGroup()
+					.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(Alignment.LEADING, gl_panelRendaFixa.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.LEADING)
+						.addComponent(label)
+						.addComponent(label_6)
+						.addComponent(label_5))
+					.addGap(17)
+					.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.LEADING)
+						.addComponent(textField_9, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+						.addComponent(textField_10, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+						.addComponent(textField_4, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+					.addGap(10))
+		);
+		gl_panelRendaFixa.setVerticalGroup(
+			gl_panelRendaFixa.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelRendaFixa.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblInvestimentoNaRenda, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addGap(46)
+					.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label_4)
+						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnNewButton_1)
+					.addGap(18)
+					.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelRendaFixa.createSequentialGroup()
+							.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_5))
+							.addGap(40)
+							.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label)))
+						.addGroup(gl_panelRendaFixa.createSequentialGroup()
+							.addGap(34)
+							.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textField_10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label_6))))
+					.addContainerGap(120, Short.MAX_VALUE))
+		);
+		panelRendaFixa.setLayout(gl_panelRendaFixa);
 		panelPrincipal.setLayout(gl_panelPrincipal);
 		frame.getContentPane().setLayout(groupLayout);
 	}
