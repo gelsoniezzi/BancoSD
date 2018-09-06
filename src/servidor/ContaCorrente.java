@@ -10,6 +10,7 @@ public class ContaCorrente {
 	
 	private String nomeCli;
 	private int cpfCli;
+	private int numeroConta;
 	private String enderecoCli;
 	private String nascimentoCli;
 	private String telefoneCli;
@@ -30,6 +31,10 @@ public class ContaCorrente {
 		setSenhaCli(senha);
 		setSaldoCorrente(0.0);
 		setSaldoPoupanca(saldoP);
+		
+		System.out.println("Conta criada com sucesso.");
+		System.out.println("cpf: " + cpf);
+        System.out.println("Número da conta: " + numeroConta);
 		
 	}
 	
@@ -142,7 +147,7 @@ public class ContaCorrente {
         System.out.println("Conta CPF: " + this.cpfCli + " valor sacado: " + valor);
         System.out.println("---------------------------------------------");
     }else {
-    	System.out.println("Conta CPF: " + this.cpfCli + " saldo indisponivel");
+    	System.out.println("Conta CPF: " + this.cpfCli + " saldo indisponivel.");
     }
 	
     }

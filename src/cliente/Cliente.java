@@ -1,12 +1,42 @@
 package cliente;
 
+
+
+// Importados do Git
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import javax.swing.JOptionPane;
+
+import cliente.ClienteGUI;
+import cliente.ClienteInterface;
+import servidor.BancoRemoto;
+
+
+public class Cliente extends UnicastRemoteObject implements ClienteInterface {
+    
+    private ClienteGUI gui;
+    
+    public Cliente (ClienteGUI gui) throws RemoteException {
+    
+        this.gui = gui;
+    }
+    
+    public void showNotification(String message) throws RemoteException {
+    
+        JOptionPane.showMessageDialog(gui, message);
+    }
+}
+
+
+// Exemplo original
+/*
+ * 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
-import servidor.BancoRemoto;
-
 public class Cliente {
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -28,3 +58,5 @@ public class Cliente {
         }
 	}
 }
+
+*/ 

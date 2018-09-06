@@ -21,38 +21,26 @@ import javax.swing.JCheckBox;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 
-public class ClienteGUI {
+import servidor.BancoRemoto;
+import cliente.Cliente;
 
-	private JFrame frame;
-	private JTextField textField;
-	private JTextField txtR;
-	private JTextField txtR_1;
-	private JTextField txtR_2;
-	private JTextField txtCpf_1;
-	private JPasswordField passwordField;
-	private JTextField txtNome;
-	private JPasswordField passwordField_1;
-	private JTextField txtCpf;
-	private JTextField txtEndereo;
-	private JTextField txtDataDeNascimento;
-	private JTextField txtTelefone;
-	private JTextField txtValor;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField txtNmeroDaConta;
-	private JTextField textField_3;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField txtR_3;
-	private JTextField textField_4;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
+// importados do git
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+public class ClienteGUI extends javax.swing.JFrame {
+
+	
 
 	/**
 	 * Launch the application.
-	 */
+	 * 
+	 * 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -69,16 +57,42 @@ public class ClienteGUI {
 	/**
 	 * Create the application.
 	 */
+	
+	public ClienteGUI() {
+        
+        try {
+            
+            cli = new Cliente(this);
+            
+            Registry nameServiceRef = LocateRegistry.getRegistry("localhost", 1088);
+            this.bank = (BancoRemoto) nameServiceRef.lookup("Bank");
+            
+            nameServiceRef.rebind("Cliente", cli);
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotBoundException ex) {
+            Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        initialize();
+    }
+	
+	
+	/*
 	public ClienteGUI() {
 		initialize();
 	}
-
-	/**
+	*/
+	
+	/*
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
+		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 456);
+		frame.setBounds(100, 100, 530, 456);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panelPrincipal = new JPanel();
@@ -101,31 +115,115 @@ public class ClienteGUI {
 		JPanel panelMenu = new JPanel();
 		panelMenu.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
+		JPanel panelTela = new JPanel();
+		panelTela.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		GroupLayout gl_panelPrincipal = new GroupLayout(panelPrincipal);
+		gl_panelPrincipal.setHorizontalGroup(
+			gl_panelPrincipal.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelPrincipal.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelMenu, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelTela, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JPanel panelSaldo = new JPanel();
+		panelTela.add(panelSaldo, "name_139587362017820");
+		
+		JPanel panelEntrar = new JPanel();
+		panelTela.add(panelEntrar, "name_140003310699236");
+		
+		JPanel panelCriarConta = new JPanel();		
+		JPanel panelSaque = new JPanel();
+		JPanel panelDeposito = new JPanel();
+		JPanel panelTransferencia = new JPanel();
+		JPanel panelPoupanca = new JPanel();
+		JPanel panelRendaFixa = new JPanel();
+		
+		
 		JButton btnCriarConta = new JButton("Criar conta");
 		btnCriarConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				panelTela.removeAll();
+				panelTela.add(panelCriarConta);
+		        panelTela.revalidate();
 			}
 		});
 		
 		JButton btnSaldo = new JButton("Saldo");
-		
-		JButton btnDepsito = new JButton("Dep贸sito");
-		
-		JButton btnSaque = new JButton("Saque");
-		
-		JButton btnTransferencia = new JButton("Transferencia");
-		
-		JButton btnEntrar = new JButton("Entrar");
-		btnEntrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnSaldo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				panelTela.removeAll();
+				panelTela.add(panelSaldo);
+		        panelTela.revalidate();
 			}
 		});
 		
-		JButton btnPoupanca = new JButton("Poupan莽a");
+		JButton btnDepsito = new JButton("Dep髎ito");
+		btnDepsito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				panelTela.removeAll();
+				panelTela.add(panelDeposito);
+		        panelTela.revalidate();
+			}
+		});
+		
+		JButton btnSaque = new JButton("Saque");
+		btnSaque.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				panelTela.removeAll();
+				panelTela.add(panelSaque);
+		        panelTela.revalidate();
+			}
+		});
+		
+		JButton btnTransferencia = new JButton("Transferencia");
+		btnTransferencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				panelTela.removeAll();
+				panelTela.add(panelTransferencia);
+		        panelTela.revalidate();
+			}
+		});
+		
+		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {			
+				panelTela.removeAll();
+				panelTela.add(panelEntrar);
+		        panelTela.revalidate();
+		        
+				
+			}
+		});
+		
+		JButton btnPoupanca = new JButton("Poupan鏰");
+		btnPoupanca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				panelTela.removeAll();
+				panelTela.add(panelPoupanca);
+		        panelTela.revalidate();
+			}
+		});
 		
 		JButton btnRendaFixa = new JButton("Renda Fixa");
+		btnRendaFixa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				panelTela.removeAll();
+				panelTela.add(panelRendaFixa);
+		        panelTela.revalidate();
+			}
+		});
 		
-		JLabel lblSimulaes = new JLabel("Simula莽玫es");
+		JLabel lblSimulaes = new JLabel("Simula珲es");
 		lblSimulaes.setHorizontalAlignment(SwingConstants.CENTER);
 		GroupLayout gl_panelMenu = new GroupLayout(panelMenu);
 		gl_panelMenu.setHorizontalGroup(
@@ -189,18 +287,8 @@ public class ClienteGUI {
 		);
 		panelMenu.setLayout(gl_panelMenu);
 		
-		JPanel panelTela = new JPanel();
-		panelTela.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		GroupLayout gl_panelPrincipal = new GroupLayout(panelPrincipal);
-		gl_panelPrincipal.setHorizontalGroup(
-			gl_panelPrincipal.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelPrincipal.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panelMenu, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelTela, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+		
+		
 		gl_panelPrincipal.setVerticalGroup(
 			gl_panelPrincipal.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panelPrincipal.createSequentialGroup()
@@ -212,8 +300,7 @@ public class ClienteGUI {
 		);
 		panelTela.setLayout(new CardLayout(0, 0));
 		
-		JPanel panelSaldo = new JPanel();
-		panelTela.add(panelSaldo, "name_139587362017820");
+		
 		
 		JLabel lblSaldo = new JLabel("Saldo");
 		lblSaldo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -236,7 +323,7 @@ public class ClienteGUI {
 		
 		JLabel lblSaldo_1 = new JLabel("Conta Corrente");
 		
-		JLabel lblContaPoupana = new JLabel("Conta Poupan莽a");
+		JLabel lblContaPoupana = new JLabel("Conta Poupan鏰");
 		
 		JLabel lblRendaFixa = new JLabel("Renda fixa");
 		GroupLayout gl_panelSaldo = new GroupLayout(panelSaldo);
@@ -285,8 +372,7 @@ public class ClienteGUI {
 		);
 		panelSaldo.setLayout(gl_panelSaldo);
 		
-		JPanel panelEntrar = new JPanel();
-		panelTela.add(panelEntrar, "name_140003310699236");
+		
 		
 		JLabel lblEntrar = new JLabel("Entrar");
 		lblEntrar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -343,7 +429,7 @@ public class ClienteGUI {
 		);
 		panelEntrar.setLayout(gl_panelEntrar);
 		
-		JPanel panelCriarConta = new JPanel();
+		
 		panelTela.add(panelCriarConta, "name_140495560549846");
 		
 		JLabel lblCriarConta = new JLabel("Criar Conta");
@@ -364,7 +450,7 @@ public class ClienteGUI {
 		txtCpf.setColumns(10);
 		
 		txtEndereo = new JTextField();
-		txtEndereo.setText("Endere莽o");
+		txtEndereo.setText("Endere鏾");
 		txtEndereo.setColumns(10);
 		
 		txtDataDeNascimento = new JTextField();
@@ -422,7 +508,7 @@ public class ClienteGUI {
 		);
 		panelCriarConta.setLayout(gl_panelCriarConta);
 		
-		JPanel panelSaque = new JPanel();
+		
 		panelTela.add(panelSaque, "name_140795562991688");
 		
 		txtValor = new JTextField();
@@ -436,7 +522,7 @@ public class ClienteGUI {
 		
 		JCheckBox chckbxCorrente = new JCheckBox("Corrente");
 		
-		JCheckBox chckbxPoupana = new JCheckBox("Poupan莽a");
+		JCheckBox chckbxPoupana = new JCheckBox("Poupan鏰");
 		
 		JCheckBox chckbxRendaFixa = new JCheckBox("Renda fixa");
 		GroupLayout gl_panelSaque = new GroupLayout(panelSaque);
@@ -445,13 +531,13 @@ public class ClienteGUI {
 				.addGroup(gl_panelSaque.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelSaque.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblSaque, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-						.addComponent(btnSacar, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+						.addComponent(lblSaque, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+						.addComponent(btnSacar, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
 						.addGroup(gl_panelSaque.createSequentialGroup()
 							.addGap(6)
 							.addGroup(gl_panelSaque.createParallelGroup(Alignment.LEADING)
 								.addComponent(chckbxCorrente)
-								.addComponent(txtValor, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+								.addComponent(txtValor, GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
 								.addComponent(chckbxPoupana)
 								.addComponent(chckbxRendaFixa))))
 					.addContainerGap())
@@ -467,24 +553,24 @@ public class ClienteGUI {
 					.addComponent(chckbxCorrente)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(chckbxPoupana)
-					.addGap(9)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(chckbxRendaFixa)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(16)
 					.addComponent(btnSacar)
-					.addContainerGap(104, Short.MAX_VALUE))
+					.addContainerGap(88, Short.MAX_VALUE))
 		);
 		panelSaque.setLayout(gl_panelSaque);
 		
-		JPanel panelDeposito = new JPanel();
+		
 		panelTela.add(panelDeposito, "name_141148139450426");
 		
 		JCheckBox checkBox = new JCheckBox("Corrente");
 		
-		JCheckBox checkBox_1 = new JCheckBox("Poupan莽a");
+		JCheckBox checkBox_1 = new JCheckBox("Poupan鏰");
 		
 		JCheckBox checkBox_2 = new JCheckBox("Renda fixa");
 		
-		JLabel lblDepsito = new JLabel("Dep贸sito");
+		JLabel lblDepsito = new JLabel("Dep髎ito");
 		lblDepsito.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		textField_1 = new JTextField();
@@ -530,7 +616,7 @@ public class ClienteGUI {
 		);
 		panelDeposito.setLayout(gl_panelDeposito);
 		
-		JPanel panelTransferencia = new JPanel();
+		
 		panelTela.add(panelTransferencia, "name_141669587370145");
 		
 		JLabel lblTransferencia = new JLabel("Transferencia");
@@ -544,10 +630,10 @@ public class ClienteGUI {
 		
 		JLabel lblSaldo_2 = new JLabel("Saldo");
 		
-		JLabel lblDestinatrio = new JLabel("Destinat谩rio");
+		JLabel lblDestinatrio = new JLabel("Destinat醨io");
 		
 		txtNmeroDaConta = new JTextField();
-		txtNmeroDaConta.setText("N煤mero da Conta");
+		txtNmeroDaConta.setText("N鷐ero da Conta");
 		txtNmeroDaConta.setColumns(10);
 		
 		textField_3 = new JTextField();
@@ -603,17 +689,17 @@ public class ClienteGUI {
 		);
 		panelTransferencia.setLayout(gl_panelTransferencia);
 		
-		JPanel panelPoupanca = new JPanel();
+		
 		panelTela.add(panelPoupanca, "name_142432910411605");
 		
-		JLabel lblSimulaoDeInvestimento = new JLabel("Investimento na poupan莽a");
+		JLabel lblSimulaoDeInvestimento = new JLabel("Investimento na poupan鏰");
 		lblSimulaoDeInvestimento.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblSaldoAtual = new JLabel("Investimento");
 		
-		JLabel lblApsMeses = new JLabel("Ap贸s 3 meses");
+		JLabel lblApsMeses = new JLabel("Ap髎 3 meses");
 		
-		JLabel lblMes = new JLabel("Ap贸s 6 meses");
+		JLabel lblMes = new JLabel("Ap髎 6 meses");
 		
 		textField_5 = new JTextField();
 		textField_5.setText("R$");
@@ -631,7 +717,7 @@ public class ClienteGUI {
 		txtR_3.setText("R$");
 		txtR_3.setColumns(10);
 		
-		JLabel lblApsMeses_1 = new JLabel("Ap贸s 12 meses");
+		JLabel lblApsMeses_1 = new JLabel("Ap髎 12 meses");
 		
 		JButton btnNewButton = new JButton("Calcular");
 		GroupLayout gl_panelPoupanca = new GroupLayout(panelPoupanca);
@@ -694,21 +780,21 @@ public class ClienteGUI {
 		);
 		panelPoupanca.setLayout(gl_panelPoupanca);
 		
-		JPanel panelRendaFixa = new JPanel();
+		
 		panelTela.add(panelRendaFixa, "name_143002121008904");
 		
 		textField_4 = new JTextField();
 		textField_4.setText("R$");
 		textField_4.setColumns(10);
 		
-		JLabel label = new JLabel("Ap贸s 12 meses");
+		JLabel label = new JLabel("Ap髎 12 meses");
 		
 		JLabel lblInvestimentoNaRenda = new JLabel("Investimento na Renda Fixa");
 		lblInvestimentoNaRenda.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel label_4 = new JLabel("Saldo atual");
 		
-		JLabel label_5 = new JLabel("Ap贸s 3 meses");
+		JLabel lblApsMeses_2 = new JLabel("Ap\u00F3s 3 meses");
 		
 		textField_8 = new JTextField();
 		textField_8.setText("R$");
@@ -718,7 +804,7 @@ public class ClienteGUI {
 		textField_9.setText("R$");
 		textField_9.setColumns(10);
 		
-		JLabel label_6 = new JLabel("Ap贸s 6 meses");
+		JLabel label_6 = new JLabel("Ap髎 6 meses");
 		
 		textField_10 = new JTextField();
 		textField_10.setText("R$");
@@ -750,7 +836,7 @@ public class ClienteGUI {
 					.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.LEADING)
 						.addComponent(label)
 						.addComponent(label_6)
-						.addComponent(label_5))
+						.addComponent(lblApsMeses_2))
 					.addGap(17)
 					.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.LEADING)
 						.addComponent(textField_9, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
@@ -774,7 +860,7 @@ public class ClienteGUI {
 						.addGroup(gl_panelRendaFixa.createSequentialGroup()
 							.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textField_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label_5))
+								.addComponent(lblApsMeses_2))
 							.addGap(40)
 							.addGroup(gl_panelRendaFixa.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -790,4 +876,69 @@ public class ClienteGUI {
 		panelPrincipal.setLayout(gl_panelPrincipal);
 		frame.getContentPane().setLayout(groupLayout);
 	}
+	
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ClienteGUI().setVisible(true);
+            }
+        });
+    }
+    
+    private BancoRemoto bank;
+    private Cliente cli;
+    
+    private JFrame frame;
+	private JTextField textField;
+	private JTextField txtR;
+	private JTextField txtR_1;
+	private JTextField txtR_2;
+	private JTextField txtCpf_1;
+	private JPasswordField passwordField;
+	private JTextField txtNome;
+	private JPasswordField passwordField_1;
+	private JTextField txtCpf;
+	private JTextField txtEndereo;
+	private JTextField txtDataDeNascimento;
+	private JTextField txtTelefone;
+	private JTextField txtValor;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField txtNmeroDaConta;
+	private JTextField textField_3;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField txtR_3;
+	private JTextField textField_4;
+	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
 }

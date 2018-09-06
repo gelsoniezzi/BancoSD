@@ -3,6 +3,8 @@ package servidor;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import cliente.ClienteInterface;
+
 public interface BancoRemoto extends Remote {
 		
 		// método a ser implementado
