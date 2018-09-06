@@ -59,7 +59,13 @@ public class ServiBanco implements BancoRemoto {
 	public boolean criarConta(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) throws RemoteException {
 		
 		ContaCorrente conta = new ContaCorrente(nome,cpf, end, nascimento, tel, senha, saldoC, saldoP);
-		conecDAO c = new conecDAO();
+		conecDAO c = null;
+		try {
+			c = new conecDAO();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		c.criarConta(conta);
 		
 		// TODO Auto-generated method stub

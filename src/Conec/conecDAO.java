@@ -26,7 +26,7 @@ import servidor.Investimento;
 public class conecDAO {
 	// a conexÃ£o com o banco de dados
 	private Connection connection;  
-	public conecDAO() throws ClassNotFoundException {
+	public conecDAO() throws ClassNotFoundException  {
 		this.connection = new conexao().getConnection();
 	}
 //função que passa a string para o cliente passa pro servidor

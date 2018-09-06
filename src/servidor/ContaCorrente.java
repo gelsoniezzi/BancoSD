@@ -132,16 +132,18 @@ public class ContaCorrente {
 	public void fazerDeposito(double valor) {
 	    
         this.saldoCorrente += valor;
-        System.out.println("Conta CPF: " + this.cpfCli + " depósito: " + valor);
+        System.out.println("Conta CPF: " + this.cpfCli + " valor deposito: " + valor + " Saldo atual :"+ this.saldoCorrente);
         System.out.println("---------------------------------------------");
     }
     
     public synchronized void fazerSaque(double valor) {
-    
-        this.saldoCorrente -= saldo;
-        System.out.println("Conta CPF: " + this.cpfCli + " withdraw: " + valor);
+    if(saldoCorrente>valor) {
+        this.saldoCorrente -= valor;
+        System.out.println("Conta CPF: " + this.cpfCli + " valor sacado: " + valor);
         System.out.println("---------------------------------------------");
+    }else {
+    	System.out.println("Conta CPF: " + this.cpfCli + " saldo indisponivel");
     }
 	
-
+    }
 }
