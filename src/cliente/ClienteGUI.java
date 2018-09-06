@@ -21,7 +21,7 @@ import javax.swing.JCheckBox;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 
-import servidor.BancoRemoto;
+//import servidor.BancoRemoto;
 import cliente.Cliente;
 
 // importados do git
@@ -907,7 +907,13 @@ public class ClienteGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+            	/*
                 new ClienteGUI().setVisible(true);
+                */
+            	
+            	ClienteGUI window = new ClienteGUI();
+				window.frame.setVisible(true);
+                
             }
         });
     }

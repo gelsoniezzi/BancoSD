@@ -10,6 +10,9 @@ import Conec.conexao;
 
 public class ServiBanco implements BancoRemoto {
 	
+	
+	/*
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -24,7 +27,7 @@ public class ServiBanco implements BancoRemoto {
 			Registry registry = LocateRegistry.getRegistry(20001);
 			
 			/* O método bind é então chamado no stub do registro para vincular 
-			 * o stub do objeto remoto ao nome "Hello" no registro.*/
+			 * o stub do objeto remoto ao nome "Hello" no registro.
 			
 			registry.bind("Banco", stub);
 
@@ -35,6 +38,27 @@ public class ServiBanco implements BancoRemoto {
 			e.printStackTrace();
 		}
 	}
+
+	*/
+	
+	@Override
+	public boolean criarConta(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) throws RemoteException {
+		
+		ContaCorrente conta = new ContaCorrente(nome,cpf, end, nascimento, tel, senha, saldoC, saldoP);
+		conecDAO c = null;
+		try {
+			c = new conecDAO();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c.criarConta(conta);
+		
+		// TODO Auto-generated method stub
+		
+		return false;
+	}
+	
 
 	@Override
 	public double saque(int cpfCli, double valorSaque, int tipo) throws RemoteException {
@@ -55,23 +79,7 @@ public class ServiBanco implements BancoRemoto {
 		return 0;
 	}
 
-	@Override
-	public boolean criarConta(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) throws RemoteException {
-		
-		ContaCorrente conta = new ContaCorrente(nome,cpf, end, nascimento, tel, senha, saldoC, saldoP);
-		conecDAO c = null;
-		try {
-			c = new conecDAO();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		c.criarConta(conta);
-		
-		// TODO Auto-generated method stub
-		
-		return false;
-	}
+	
 
 	@Override
 	public boolean criarRendaFixa() throws RemoteException {
