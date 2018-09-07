@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package cliente;
 
 import java.awt.CardLayout;
@@ -9,12 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author gelsoniezzi
@@ -25,22 +24,22 @@ public class ClienteGUI extends java.awt.Frame {
      * Creates new form ClienteGUI
      */
     public ClienteGUI() {
-        
-        try {
+    	
+    	try {
             
             cli = new Cliente(this);
             
             Registry nameServiceRef = LocateRegistry.getRegistry("localhost", 1088);
             this.bank = (BancoRemoto) nameServiceRef.lookup("Bank");
             
-            nameServiceRef.rebind("Cliente", cli);
+            nameServiceRef.rebind("Client", cli);
             
         } catch (RemoteException ex) {
             Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NotBoundException ex) {
             Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+    	
         initComponents();
     }
 
@@ -139,10 +138,6 @@ public class ClienteGUI extends java.awt.Frame {
         jTextField22 = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(700, 600));
-        setMinimumSize(new java.awt.Dimension(600, 500));
-        setPreferredSize(new java.awt.Dimension(600, 500));
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 exitForm(evt);
@@ -796,12 +791,52 @@ public class ClienteGUI extends java.awt.Frame {
         card.show(this.panelTela, "cardSaldo");
     }//GEN-LAST:event_btnSaldoActionPerformed
 
+    private void btnDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositoActionPerformed
+        // TODO add your handling code here:
+
+        CardLayout card = (CardLayout) this.panelTela.getLayout();
+        card.show(this.panelTela, "cardDeposito");
+    }//GEN-LAST:event_btnDepositoActionPerformed
+
+    private void btnSaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaqueActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) this.panelTela.getLayout();
+        card.show(this.panelTela, "cardSaque");
+    }//GEN-LAST:event_btnSaqueActionPerformed
+
+    private void btnTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferenciaActionPerformed
+        // TODO add your handling code here:
+
+        CardLayout card = (CardLayout) this.panelTela.getLayout();
+        card.show(this.panelTela, "cardTransferencia");
+
+    }//GEN-LAST:event_btnTransferenciaActionPerformed
+
+    private void btnPoupancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPoupancaActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) this.panelTela.getLayout();
+        card.show(this.panelTela, "cardPoupanca");
+    }//GEN-LAST:event_btnPoupancaActionPerformed
+
     private void btnRendaFixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRendaFixaActionPerformed
         // TODO add your handling code here:
-        
+
         CardLayout card = (CardLayout) this.panelTela.getLayout();
         card.show(this.panelTela, "cardRendaFixa");
     }//GEN-LAST:event_btnRendaFixaActionPerformed
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        // TODO add your handling code here:
+
+        CardLayout card = (CardLayout) this.panelTela.getLayout();
+        card.show(this.panelTela, "cardEntrar");
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnCriarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarContaActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) this.panelTela.getLayout();
+        card.show(this.panelTela, "cardCriarConta");
+    }//GEN-LAST:event_btnCriarContaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -811,52 +846,12 @@ public class ClienteGUI extends java.awt.Frame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void btnDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositoActionPerformed
-        // TODO add your handling code here:
-        
-       CardLayout card = (CardLayout) this.panelTela.getLayout();
-        card.show(this.panelTela, "cardDeposito");
-    }//GEN-LAST:event_btnDepositoActionPerformed
-
-    private void btnSaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaqueActionPerformed
-        // TODO add your handling code here:
-       CardLayout card = (CardLayout) this.panelTela.getLayout();
-        card.show(this.panelTela, "cardSaque");
-    }//GEN-LAST:event_btnSaqueActionPerformed
-
-    private void btnTransferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferenciaActionPerformed
-        // TODO add your handling code here:
-        
-        
-       CardLayout card = (CardLayout) this.panelTela.getLayout();
-        card.show(this.panelTela, "cardTransferencia");
-        
-    }//GEN-LAST:event_btnTransferenciaActionPerformed
-
-    private void btnPoupancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPoupancaActionPerformed
-        // TODO add your handling code here:
-       CardLayout card = (CardLayout) this.panelTela.getLayout();
-        card.show(this.panelTela, "cardPoupanca");
-    }//GEN-LAST:event_btnPoupancaActionPerformed
-
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        // TODO add your handling code here:
-        
-       CardLayout card = (CardLayout) this.panelTela.getLayout();
-        card.show(this.panelTela, "cardEntrar");
-    }//GEN-LAST:event_btnEntrarActionPerformed
-
-    private void btnCriarContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarContaActionPerformed
-        // TODO add your handling code here:
-       CardLayout card = (CardLayout) this.panelTela.getLayout();
-        card.show(this.panelTela, "cardCriarConta");
-    }//GEN-LAST:event_btnCriarContaActionPerformed
-
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+    	
+    	/* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -879,7 +874,6 @@ public class ClienteGUI extends java.awt.Frame {
         }
         //</editor-fold>
         
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ClienteGUI().setVisible(true);
@@ -887,13 +881,8 @@ public class ClienteGUI extends java.awt.Frame {
         });
     }
     
-    
-    
-    
-    
     private BancoRemoto bank;
     private Cliente cli;
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarConta;
