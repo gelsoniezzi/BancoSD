@@ -520,7 +520,7 @@ public class ClienteGUI extends java.awt.Frame {
         panelTela.add(panelSaque, "cardSaque");
 
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Criar conta no IGE Bank");
+        jLabel17.setText("IGE Bank - Transferencia");
 
         jLabel18.setText("Conta destino");
 
