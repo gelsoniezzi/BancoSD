@@ -973,3 +973,5 @@ public class ClienteGUI extends java.awt.Frame {
     private javax.swing.JPanel panelTransferencia;
     // End of variables declaration//GEN-END:variables
 }
+
+
