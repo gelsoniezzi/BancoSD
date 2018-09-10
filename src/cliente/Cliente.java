@@ -1,16 +1,14 @@
 package cliente;
 
-
-
 // Importados do Git
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import javax.swing.JOptionPane;
 
+/*
 import cliente.ClienteGUI;
 import cliente.ClienteInterface;
-import servidor.BancoRemoto;
-
+*/
 
 public class Cliente extends UnicastRemoteObject implements ClienteInterface {
     

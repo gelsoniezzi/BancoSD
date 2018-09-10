@@ -1,5 +1,9 @@
 package servidor;
 
+/*
+ * Metodos serão invocados remotamentep pelos clientes
+ */
+
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -8,7 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 import Conec.conecDAO;
 import Conec.conexao;
 
-public class ServiBanco implements BancoRemoto {
+public class ServiBanco extends UnicastRemoteObject implements BancoRemoto {
 	
 	
 	/*
@@ -42,9 +46,10 @@ public class ServiBanco implements BancoRemoto {
 	*/
 	
 	@Override
-	public boolean criarConta(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) throws RemoteException {
+	public String criarConta(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoCorrente, double saldoPoupanca, double saldoRendaFixa) throws RemoteException {
 		
-		ContaCorrente conta = new ContaCorrente(nome,cpf, end, nascimento, tel, senha, saldoC, saldoP);
+		ContaCorrente conta = new ContaCorrente(nome,cpf, end, nascimento, tel, senha, saldoCorrente, saldoPoupanca, saldoRendaFixa);
+		/*
 		conecDAO c = null;
 		try {
 			c = new conecDAO();
@@ -55,8 +60,8 @@ public class ServiBanco implements BancoRemoto {
 		c.criarConta(conta);
 		
 		// TODO Auto-generated method stub
-		
-		return false;
+		*/
+		return "Conta criado com sucesso!"; //retorna essa mensagem para a interface do usuário (ClienteGUI)
 	}
 	
 

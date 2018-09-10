@@ -13,6 +13,8 @@ import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -852,8 +854,7 @@ public class ClienteGUI extends java.awt.Frame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
-    
-    btnSaldoActionPerformed(evt);
+
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
@@ -863,6 +864,23 @@ public class ClienteGUI extends java.awt.Frame {
     	String endereco = jTextField4.getText();
     	String telefone = jTextField5.getText();
     	String senha = jPasswordField2.getText();
+    	
+    	try {
+            String result = bank.criarConta(nome, cpf, nascimento, endereco, telefone, senha, 0.00, 0.00, 0.00);
+            
+            JOptionPane.showMessageDialog(this, result);
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+        
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jTextField3.setText("");
+            jTextField4.setText("");
+            jTextField5.setText("");
+            jPasswordField2.setText("");
+        }
     	
     	
     }

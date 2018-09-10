@@ -16,12 +16,14 @@ public class ContaCorrente {
 	private String telefoneCli;
 	private String senhaCli;
 	private double saldoCorrente;
+	private double saldoPoupanca;
+	private double saldoRendaFixa;
 	private Investimento invest[];
 	//private double saldoRendaFixa;
 	//private double saldoPoupanca;
 
 	
-	public ContaCorrente(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) {
+	public ContaCorrente(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP, double saldoR) {
 		// Construtor
 		setNomeCli(nome);
 		setCpfCli(cpf);
@@ -30,11 +32,12 @@ public class ContaCorrente {
 		setTelefoneCli(tel);
 		setSenhaCli(senha);
 		setSaldoCorrente(0.0);
-		setSaldoPoupanca(saldoP);
+		setSaldoPoupanca(0.0);
+		setSaldoRendaFixa(0.0);
 		
 		System.out.println("Conta criada com sucesso.");
 		System.out.println("cpf: " + cpf);
-        System.out.println("Número da conta: " + numeroConta);
+        //System.out.println("Número da conta: " + numeroConta); O numero da conta vai ser o numero do cliete.
 		
 	}
 	
@@ -71,15 +74,14 @@ public class ContaCorrente {
 		invest[0]= new Investimento(saldoPoupanca,1);
 	}
 
-//
-//	public double getSaldoRendaFixa() {
-//		return saldoRendaFixa;
-//	}
-//
-//
-//	public void setSaldoRendaFixa(double saldoRendaFixa) {
-//		this.saldoRendaFixa = saldoRendaFixa;
-//	}
+
+	public double getSaldoRendaFixa() {
+		return saldoRendaFixa;
+	}
+
+	public void setSaldoRendaFixa(double saldoRendaFixa) {
+		this.saldoRendaFixa = saldoRendaFixa;
+	}
 
 	public String getNomeCli() {
 		return nomeCli;
