@@ -26,6 +26,8 @@ import javax.swing.JCheckBox;
 /**
  *
  * @author gelsoniezzi
+ *         isabellepdo
+ *         joctan.igo
  */
 public class ClienteGUI extends java.awt.Frame {
 
