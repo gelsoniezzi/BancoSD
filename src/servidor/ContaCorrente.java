@@ -1,5 +1,9 @@
 package servidor;
 
+/*
+ * Classe que 
+ * 
+ */
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.sql.Date;
@@ -53,7 +57,7 @@ public class ContaCorrente {
 
 	public double getSaldoCorrente() {
 		
-		System.out.println("Conta CPF: " + cpfCli + " saldo: " + this.saldoCorrente);
+		System.out.println("Conta CPF: " + cpfCli + " saldo: " + this.saldoCorrente); //recuperar saldo no banco de dados e depois fazer operacao
         System.out.println("---------------------------------------------");
 		return saldoCorrente;
 	}
