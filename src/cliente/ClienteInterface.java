@@ -3,7 +3,7 @@ package cliente;
 /*
  * Interface divulgando metodos remotos do cliente
  */
-
+//
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

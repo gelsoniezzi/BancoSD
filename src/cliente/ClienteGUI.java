@@ -40,8 +40,9 @@ public class ClienteGUI extends java.awt.Frame {
             
             cli = new Cliente(this);
             
-            Registry nameServiceRef = LocateRegistry.getRegistry("localhost", 1088);
-            this.bank = (BancoRemoto) nameServiceRef.lookup("Bank");
+           // Registry nameServiceRef = LocateRegistry.getRegistry("localhost", 1088);
+            Registry nameServiceRef = LocateRegistry.getRegistry("192.168.10.238",20001);
+            this.bank = (BancoRemoto) nameServiceRef.lookup("Banco");
             
             nameServiceRef.rebind("Client", cli);
             System.out.println("Estou aqui");
