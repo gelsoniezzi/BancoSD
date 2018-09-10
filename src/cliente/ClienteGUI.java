@@ -13,6 +13,8 @@ import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -76,6 +78,11 @@ public class ClienteGUI extends java.awt.Frame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jButton1ActionPerformed(e);
+        	}
+        });
         jPasswordField2 = new javax.swing.JPasswordField();
         panelEntrar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -845,6 +852,20 @@ public class ClienteGUI extends java.awt.Frame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+    
+    btnSaldoActionPerformed(evt);
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    	String nome = jTextField1.getText();
+    	int cpf = Integer.parseInt(jTextField2.getText());
+    	String nascimento = jTextField3.getText();
+    	String endereco = jTextField4.getText();
+    	String telefone = jTextField5.getText();
+    	String senha = jPasswordField2.getText();
+    	
+    	
+    }
 
     /**
      * @param args the command line arguments
