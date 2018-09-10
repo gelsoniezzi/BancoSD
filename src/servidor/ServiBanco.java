@@ -59,15 +59,8 @@ public class ServiBanco implements BancoRemoto {
 		return false;
 	}
 	
-
 	@Override
-	public double saque(int cpfCli, double valorSaque, int tipo) throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double deposito(int cpfCli, double valorDeposito, int tipo) throws RemoteException {
+	public double deposito(String contalogada, Double valor, String tipo) throws RemoteException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -85,6 +78,20 @@ public class ServiBanco implements BancoRemoto {
 	public boolean criarRendaFixa() throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+
+
+	public void saque(String contalogada, double parseDouble, String tipo) throws RemoteException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double saldo(String contalogada, String tipo) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

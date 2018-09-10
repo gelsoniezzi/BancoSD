@@ -14,6 +14,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import servidor.ServiBanco;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JCheckBox;
+
 /**
  *
  * @author gelsoniezzi
@@ -33,11 +42,13 @@ public class ClienteGUI extends java.awt.Frame {
             this.bank = (BancoRemoto) nameServiceRef.lookup("Bank");
             
             nameServiceRef.rebind("Client", cli);
-            
+            System.out.println("Estou aqui");
         } catch (RemoteException ex) {
             Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Primeiro catch");
         } catch (NotBoundException ex) {
             Logger.getLogger(ClienteGUI.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Segundo catch");
         }
     	
         initComponents();
@@ -65,18 +76,31 @@ public class ClienteGUI extends java.awt.Frame {
         panelCriarConta = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtnome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtcpf = new javax.swing.JTextField();
+        txtnasc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txtend = new javax.swing.JTextField();
+        txttel = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        jButton1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		
+        		ServiBanco b = new ServiBanco();
+        		try {
+					b.criarConta(txtnome.getText(), Integer.parseInt(txtcpf.getText()), txtend.getText(), txtnasc.getText(), txttel.getText(), senhaconta.getText(), 0.00, 0.00);
+				} catch (NumberFormatException | RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("CPF invalido");
+				}
+        	}
+        });
+        senhaconta = new javax.swing.JPasswordField();
         panelEntrar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -87,22 +111,44 @@ public class ClienteGUI extends java.awt.Frame {
         panelSaldo = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         labelConta = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        saldoc = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        saldocc = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        saldop = new javax.swing.JTextField();
+        saldor = new javax.swing.JTextField();
         panelSaque = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        valorsaque = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        jButton4.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String tipo = " ";
+        		if (ckcorrente.isSelected()) {
+        			tipo = "corrente";
+        		}else if (ckpoupanca.isSelected()) {
+        			tipo = "poupanca";
+        		}else if (ckrenda.isSelected()) {
+        			tipo = "renda";
+        		}else {
+        			System.out.println("Escolha o tipo de saque");
+        		}
+        		
+        		ServiBanco b = new ServiBanco();
+        		try {
+					b.saque(contalogada, Double.parseDouble(valorsaque.getText()), tipo);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        ckcorrente = new javax.swing.JCheckBox();
+        ckpoupanca = new javax.swing.JCheckBox();
+        ckrenda = new javax.swing.JCheckBox();
         panelTransferencia = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -115,6 +161,29 @@ public class ClienteGUI extends java.awt.Frame {
         jLabel26 = new javax.swing.JLabel();
         jTextField18 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
+        jButton6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String tipo = " ";
+        		if (ckcor.isSelected()) {
+        			tipo = "corrente";
+        		}else if (ckpoup.isSelected()) {
+        			tipo = "poupanca";
+        		}else if (ckrendaf.isSelected()) {
+        			tipo = "renda";
+        		}else {
+        			System.out.println("Escolha o tipo de deposito");
+        		}
+        		
+        		ServiBanco b = new ServiBanco();
+        		try {
+					b.deposito(contalogada, Double.parseDouble(valorsaque.getText()), tipo);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        	
+        });
         panelPoupanca = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
@@ -265,7 +334,7 @@ public class ClienteGUI extends java.awt.Frame {
 
         jButton1.setText("Criar conta");
 
-        jPasswordField2.setText("jPasswordField2");
+        senhaconta.setText("jPasswordField2");
 
         javax.swing.GroupLayout panelCriarContaLayout = new javax.swing.GroupLayout(panelCriarConta);
         panelCriarConta.setLayout(panelCriarContaLayout);
@@ -287,12 +356,12 @@ public class ClienteGUI extends java.awt.Frame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelCriarContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField4)
-                            .addComponent(jPasswordField2))))
+                            .addComponent(txttel)
+                            .addComponent(txtnasc)
+                            .addComponent(txtcpf)
+                            .addComponent(txtnome)
+                            .addComponent(txtend)
+                            .addComponent(senhaconta))))
                 .addContainerGap())
         );
         panelCriarContaLayout.setVerticalGroup(
@@ -303,26 +372,26 @@ public class ClienteGUI extends java.awt.Frame {
                 .addGap(18, 18, 18)
                 .addGroup(panelCriarContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCriarContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCriarContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCriarContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCriarContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCriarContaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(senhaconta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
@@ -400,11 +469,16 @@ public class ClienteGUI extends java.awt.Frame {
         jButton3.setText("Mostrar saldo");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                try {
+					jButton3ActionPerformed(evt);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
-        jLabel11.setText("Poupança");
+        jLabel11.setText("Poupan\u00E7a");
 
         jLabel12.setText("Renda Fixa");
 
@@ -426,10 +500,10 @@ public class ClienteGUI extends java.awt.Frame {
                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelSaldoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField8)
-                            .addComponent(jTextField9)
-                            .addComponent(jTextField10)))
+                            .addComponent(saldoc)
+                            .addComponent(saldocc)
+                            .addComponent(saldop)
+                            .addComponent(saldor)))
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -441,19 +515,19 @@ public class ClienteGUI extends java.awt.Frame {
                 .addGap(18, 18, 18)
                 .addGroup(panelSaldoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelConta)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(saldoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSaldoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(saldocc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSaldoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(saldop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSaldoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(saldor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -468,11 +542,11 @@ public class ClienteGUI extends java.awt.Frame {
 
         jButton4.setText("Sacar dinheiro");
 
-        jCheckBox1.setText("Corrente");
+        ckcorrente.setText("Corrente");
 
-        jCheckBox2.setText("Poupanca");
+        ckpoupanca.setText("Poupanca");
 
-        jCheckBox3.setText("Renda Fixa");
+        ckrenda.setText("Renda Fixa");
 
         javax.swing.GroupLayout panelSaqueLayout = new javax.swing.GroupLayout(panelSaque);
         panelSaque.setLayout(panelSaqueLayout);
@@ -487,15 +561,15 @@ public class ClienteGUI extends java.awt.Frame {
                         .addGap(90, 90, 90)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField11)))
+                        .addComponent(valorsaque)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSaqueLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox1)
+                .addComponent(ckcorrente)
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox2)
+                .addComponent(ckpoupanca)
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox3)
+                .addComponent(ckrenda)
                 .addGap(34, 34, 34))
         );
         panelSaqueLayout.setVerticalGroup(
@@ -506,12 +580,12 @@ public class ClienteGUI extends java.awt.Frame {
                 .addGap(18, 18, 18)
                 .addGroup(panelSaqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valorsaque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelSaqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox3))
+                    .addComponent(ckcorrente)
+                    .addComponent(ckpoupanca)
+                    .addComponent(ckrenda))
                 .addGap(28, 28, 28)
                 .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -569,41 +643,64 @@ public class ClienteGUI extends java.awt.Frame {
         panelTela.add(panelTransferencia, "cardTransferencia");
 
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("IGE Bank - Depósito");
+        jLabel24.setText("IGE Bank - Deposito");
 
         jLabel26.setText("Valor");
 
         jButton6.setText("Depositar");
+        
+        ckcor = new JCheckBox("Corrente");
+        
+        ckpoup = new JCheckBox("Poupan\u00E7a");
+        
+        ckrendaf = new JCheckBox("Renda Fixa");
 
         javax.swing.GroupLayout panelDepositoLayout = new javax.swing.GroupLayout(panelDeposito);
-        panelDeposito.setLayout(panelDepositoLayout);
         panelDepositoLayout.setHorizontalGroup(
-            panelDepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDepositoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDepositoLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jLabel26)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField18)))
-                .addContainerGap())
+        	panelDepositoLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(panelDepositoLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(panelDepositoLayout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(panelDepositoLayout.createSequentialGroup()
+        					.addGroup(panelDepositoLayout.createParallelGroup(Alignment.TRAILING)
+        						.addComponent(jLabel24, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+        						.addGroup(panelDepositoLayout.createSequentialGroup()
+        							.addGap(95)
+        							.addComponent(jLabel26)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(jTextField18, 227, 227, 227)))
+        					.addContainerGap())
+        				.addGroup(panelDepositoLayout.createSequentialGroup()
+        					.addComponent(jButton6, GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+        					.addContainerGap())))
+        		.addGroup(panelDepositoLayout.createSequentialGroup()
+        			.addGap(78)
+        			.addComponent(ckcor)
+        			.addGap(18)
+        			.addComponent(ckpoup)
+        			.addGap(18)
+        			.addComponent(ckrendaf)
+        			.addContainerGap(17, Short.MAX_VALUE))
         );
         panelDepositoLayout.setVerticalGroup(
-            panelDepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDepositoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel24)
-                .addGap(40, 40, 40)
-                .addGroup(panelDepositoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(jTextField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        	panelDepositoLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(panelDepositoLayout.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(jLabel24)
+        			.addGap(40)
+        			.addGroup(panelDepositoLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel26)
+        				.addComponent(jTextField18, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(panelDepositoLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(ckcor)
+        				.addComponent(ckpoup)
+        				.addComponent(ckrendaf))
+        			.addGap(18)
+        			.addComponent(jButton6)
+        			.addContainerGap(311, Short.MAX_VALUE))
         );
+        panelDeposito.setLayout(panelDepositoLayout);
 
         panelTela.add(panelDeposito, "cardDeposito");
 
@@ -842,9 +939,15 @@ public class ClienteGUI extends java.awt.Frame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) throws RemoteException {
+    	//ver saldo de todas as contas
+    	
+    	ServiBanco b = new ServiBanco();
+    	saldoc.setText(contalogada);
+    	saldocc.setText(Double.toString(b.saldo(contalogada, "corrente")));
+    	saldop.setText(Double.toString(b.saldo(contalogada, "poupanca")));
+    	saldor.setText(Double.toString(b.saldo(contalogada, "renda")));
+    }
 
     /**
      * @param args the command line arguments
@@ -883,6 +986,7 @@ public class ClienteGUI extends java.awt.Frame {
     
     private BancoRemoto bank;
     private Cliente cli;
+    public String contalogada;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCriarConta;
@@ -901,9 +1005,9 @@ public class ClienteGUI extends java.awt.Frame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox ckcorrente;
+    private javax.swing.JCheckBox ckpoupanca;
+    private javax.swing.JCheckBox ckrenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -935,11 +1039,11 @@ public class ClienteGUI extends java.awt.Frame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JPasswordField senhaconta;
     private javax.swing.JPasswordField jPasswordField3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField txtnome;
+    private javax.swing.JTextField saldor;
+    private javax.swing.JTextField valorsaque;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
@@ -948,17 +1052,17 @@ public class ClienteGUI extends java.awt.Frame {
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtcpf;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txtnasc;
+    private javax.swing.JTextField txtend;
+    private javax.swing.JTextField txttel;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField saldoc;
+    private javax.swing.JTextField saldocc;
+    private javax.swing.JTextField saldop;
     private javax.swing.JLabel labelConta;
     private javax.swing.JPanel panelCriarConta;
     private javax.swing.JPanel panelDeposito;
@@ -971,5 +1075,7 @@ public class ClienteGUI extends java.awt.Frame {
     private javax.swing.JPanel panelSaque;
     private javax.swing.JPanel panelTela;
     private javax.swing.JPanel panelTransferencia;
-    // End of variables declaration//GEN-END:variables
+    private JCheckBox ckcor;
+    private JCheckBox ckpoup;
+    private JCheckBox ckrendaf;
 }

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.sql.rowset.WebRowSet;
+
 import cliente.Cliente;
 
 import java.io.IOException;
@@ -40,7 +42,7 @@ public void criarConta(ContaCorrente conta) {
 	
 		
 		try {
-		// prepared statement para inserÃ§Ã£o
+		// prepared statement para inserção
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		
 		// seta os valores
@@ -57,12 +59,127 @@ public void criarConta(ContaCorrente conta) {
 		// executa
 		stmt.execute();
 		stmt.close();
-		
+		System.out.println("Inserido com sucesso");
 		} catch (SQLException e) {
 		      throw new RuntimeException(e);
 		 }
 }
 
+public void saque(String contalogada, Double valor, String tipo) throws SQLException {
+	Double saldoatual = 0.00; 
+	Double saldonovo = 0.00;
+	
+	  PreparedStatement stmt = this.connection.prepareStatement("select * from conta where copCli =" +contalogada);
+	  ResultSet rs = stmt.executeQuery();
+	
+	if (tipo == "corrente") {
+		saldoatual = rs.getDouble("saldoCc");	
+	}else if (tipo == "poupanca") {
+		saldoatual = rs.getDouble("saldoPou");
+	}else if (tipo == "renda") {
+		saldoatual = rs.getDouble("saldoRf");
+	}
+	
+	if (saldoatual >= valor) {
+		saldonovo = saldoatual - valor;
+	}else {
+		System.out.println("Valor inferior ao que contem na Conta");
+	}
+	
+	
+	String sql = "";
+	if (tipo == "corrente") {
+		sql = "update conta set saldoCc = ? where copCli = ?";	
+	}else if (tipo == "poupanca") {
+		sql = "update conta set saldoPou = ? where copCli = ?";
+	}else if (tipo == "renda") {
+		sql = "update conta set saldoRf = ? where copCli = ?";
+	}else {
+		
+	}
+			
+	try {
+		// prepared statement para inserção
+		PreparedStatement stmt1 = connection.prepareStatement(sql);
+		
+		// seta os valores
+		stmt1.setString(1,Double.toString(saldonovo));
+		stmt1.setString(2,contalogada);
+		// executa
+		stmt1.execute();
+		stmt1.close();
+		System.out.println("Saque feito com sucesso!");
+	} catch (SQLException e) {
+	      throw new RuntimeException(e);
+	 }
+	
+	
+}
+
+
+public void deposito(String contalogada, Double valor, String tipo) throws SQLException {
+	Double saldoatual = 0.00; 
+	Double saldonovo = 0.00;
+	
+	  PreparedStatement stmt = this.connection.prepareStatement("select * from conta where copCli =" +contalogada);
+	  ResultSet rs = stmt.executeQuery();
+	
+	if (tipo == "corrente") {
+		saldoatual = rs.getDouble("saldoCc");	
+	}else if (tipo == "poupanca") {
+		saldoatual = rs.getDouble("saldoPou");
+	}else if (tipo == "renda") {
+		saldoatual = rs.getDouble("saldoRf");
+	}
+	
+	
+	saldonovo = saldoatual + valor;
+	
+	String sql = "";
+	if (tipo == "corrente") {
+		sql = "update conta set saldoCc = ? where copCli = ?";	
+	}else if (tipo == "poupanca") {
+		sql = "update conta set saldoPou = ? where copCli = ?";
+	}else if (tipo == "renda") {
+		sql = "update conta set saldoRf = ? where copCli = ?";
+	}else {
+		
+	}
+			
+	try {
+		// prepared statement para inserção
+		PreparedStatement stmt1 = connection.prepareStatement(sql);
+		
+		// seta os valores
+		stmt1.setString(1,Double.toString(saldonovo));
+		stmt1.setString(2,contalogada);
+		// executa
+		stmt1.execute();
+		stmt1.close();
+		System.out.println("Deposito feito com sucesso!");
+	} catch (SQLException e) {
+	      throw new RuntimeException(e);
+	 }
+	
+	
+}
+
+public double saldo(String contalogada, String tipo) throws SQLException {
+	Double saldoatual = 0.00; 
+	
+	  PreparedStatement stmt = this.connection.prepareStatement("select * from conta where copCli =" +contalogada);
+	  ResultSet rs = stmt.executeQuery();
+	
+	if (tipo == "corrente") {
+		saldoatual = rs.getDouble("saldoCc");	
+	}else if (tipo == "poupanca") {
+		saldoatual = rs.getDouble("saldoPou");
+	}else if (tipo == "renda") {
+		saldoatual = rs.getDouble("saldoRf");
+	}
+	
+	return saldoatual;
+}
 
 public void remove(String id) {
 	try {
