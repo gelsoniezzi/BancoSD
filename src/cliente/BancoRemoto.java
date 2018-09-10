@@ -6,9 +6,6 @@ import java.rmi.RemoteException;
 import cliente.ClienteInterface;
 
 public interface BancoRemoto extends Remote {
-		
-		// método a ser implementado
-	    /*int somar(int a, int b) throws RemoteException;*/
 	    
 	    double saque(int cpfCli, double valorSaque, int tipo) throws RemoteException;
 	    double deposito(int cpfCli, double valorDeposito, int tipo) throws RemoteException;

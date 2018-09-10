@@ -39,7 +39,6 @@ public void criarConta(ContaCorrente conta) {
 		String sql = "insert into conta " +
 		"(nomeCli,cpfCli,endCli,nascCli,telefoneCli,senhaCli,saldoCc,saldoPou)" +
 		" values (?,?,?,?,?,?,?,?)";
-	
 		
 		try {
 		// prepared statement para inserção
@@ -94,10 +93,8 @@ public void saque(String contalogada, Double valor, String tipo) throws SQLExcep
 		sql = "update conta set saldoPou = ? where copCli = ?";
 	}else if (tipo == "renda") {
 		sql = "update conta set saldoRf = ? where copCli = ?";
-	}else {
-		
 	}
-			
+	
 	try {
 		// prepared statement para inserção
 		PreparedStatement stmt1 = connection.prepareStatement(sql);
@@ -112,7 +109,6 @@ public void saque(String contalogada, Double valor, String tipo) throws SQLExcep
 	} catch (SQLException e) {
 	      throw new RuntimeException(e);
 	 }
-	
 	
 }
 
@@ -191,7 +187,33 @@ public void remove(String id) {
 			System.err.println("ERRO" + e.getMessage());
 			throw new RuntimeException(e);
 		}
+	}
+
+public void tranferencia(String contaLogada, String tipoContaRemetente, String  contaReceptora , String tipoContaReceptora , double valorTransferido) throws ClassNotFoundException{
+	try {
+		conecDAO c = new conecDAO();
+		if (c.saldo(contaLogada,tipoContaRemetente)>valorTransferido) {
+		c.saque(contaLogada, valorTransferido, tipoContaRemetente);
+		c.deposito(contaReceptora, valorTransferido, tipoContaReceptora);
+		}
+	}catch (SQLException e) {
+		System.err.println("ERRO" + e.getMessage());
+		throw new RuntimeException(e);
+		}
+	}
+
+public void rendimento(String contaLogada, String tipoConta, int tempo) throws SQLException, ClassNotFoundException {
+	conecDAO c = new conecDAO();
+	double rendimento =0;
+	rendimento=c.saldo(contaLogada, tipoConta);
+	for(int i = 0; i <tempo;i++) {
+			if(tipoConta == "poupanca") {
+				rendimento= rendimento * 1.005;
+			}else if(tipoConta == "renda") {
+				rendimento = rendimento * 1.015; 
+			}
+		}
+	}
 }
-	
-	
-}
+
+
