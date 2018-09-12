@@ -1,5 +1,5 @@
 package servidor;
-
+//Classe que desistimos de utilizar
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class RodaServidor {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 	    
         try {
             
@@ -21,6 +21,6 @@ public class RodaServidor {
         } catch (RemoteException ex) {
             Logger.getLogger(RodaServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } 
+    } */
 
 }

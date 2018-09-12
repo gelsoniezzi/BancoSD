@@ -9,19 +9,21 @@ import java.util.Scanner;
 public class ContaCorrente {
 	
 	private String nomeCli;
-	private int cpfCli;
+	private String cpfCli;
 	private int numeroConta;
 	private String enderecoCli;
 	private String nascimentoCli;
 	private String telefoneCli;
 	private String senhaCli;
 	private double saldoCorrente;
-	private Investimento invest[];
-	//private double saldoRendaFixa;
-	//private double saldoPoupanca;
+	//private Investimento invest[];
+	private double saldoRendaFixa;
+	private double saldoPoupanca;
 
 	
-	public ContaCorrente(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) {
+	public ContaCorrente() {
+	}
+	public ContaCorrente(String nome, String cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) {
 		// Construtor
 		setNomeCli(nome);
 		setCpfCli(cpf);
@@ -38,20 +40,19 @@ public class ContaCorrente {
 		
 	}
 	
-	public int getCpfCli() {
+	public String getCpfCli() {
 		return cpfCli;
 	}
 
 
-	public void setCpfCli(int cpfCli) {
+	public void setCpfCli(String cpfCli) {
 		this.cpfCli = cpfCli;
 	}
 
 
 	public double getSaldoCorrente() {
 		
-		System.out.println("Conta CPF: " + cpfCli + " saldo: " + this.saldoCorrente);
-        System.out.println("---------------------------------------------");
+		
 		return saldoCorrente;
 	}
 
@@ -62,24 +63,23 @@ public class ContaCorrente {
 
 
 	public double getSaldoPoupanca() {
-			return invest[0].getSaldo();
+		return saldoPoupanca;	
+		//return invest[0].getSaldo();
 	}
 
 
 	public void setSaldoPoupanca(double saldoPoupanca) {
-		//this.saldoPoupanca = saldoPoupanca;
-		invest[0]= new Investimento(saldoPoupanca,1);
+		this.saldoPoupanca = saldoPoupanca;
+		//invest[0]= new Investimento(saldoPoupanca,1);
 	}
 
-//
-//	public double getSaldoRendaFixa() {
-//		return saldoRendaFixa;
-//	}
-//
-//
-//	public void setSaldoRendaFixa(double saldoRendaFixa) {
-//		this.saldoRendaFixa = saldoRendaFixa;
-//	}
+	public double getSaldoRendaFixa() {
+		return saldoRendaFixa;
+	}
+
+	public void setSaldoRendaFixa(double saldoRendaFixa) {
+		this.saldoRendaFixa = saldoRendaFixa;
+	}
 
 	public String getNomeCli() {
 		return nomeCli;
