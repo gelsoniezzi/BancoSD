@@ -1,6 +1,9 @@
 package cliente;
 
-// Importados do Git
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
+/*// Importados do Git
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import javax.swing.JOptionPane;
@@ -25,13 +28,17 @@ public class Cliente extends UnicastRemoteObject implements ClienteInterface {
     }
 }
 
-
+*/
 // Exemplo original
-/*
- * 
+
+ 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import servidor.BancoRemoto;
+import servidor.ServiBanco;
 
 public class Cliente {
 	
@@ -48,13 +55,51 @@ public class Cliente {
             
             BancoRemoto stub = (BancoRemoto) registry.lookup("Banco");
             
-//            System.out.println("A soma entre 20 e 10 é: " + stub.saque(30, 10,10));
+            System.out.println("A soma entre 20 e 10 é: ");
     
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
         }
 	}
+	
+	public void criarConta(String nome, String cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) throws RemoteException {
+		
+		 try {
+			Registry registry = LocateRegistry.getRegistry( 20001);
+	        
+	        BancoRemoto stub = (BancoRemoto) registry.lookup("Banco");
+	        System.out.println("foi");
+	        //stub.criarConta(nome, cpf, end, nascimento, tel, senha, saldoC, saldoP);
+	       try {
+	    	   //stub.criarConta("igo", "390213", "sdfghj", "nascimento", "tel", "senha", 0.0, 0.0);
+		       stub.criarConta(nome, cpf,end, nascimento, tel, senha,saldoC ,saldoP);
+	    	   System.out.println("foi aeeeeeeeeee");
+	       } catch (Exception e) {
+			System.out.println(e.getMessage());	
+		}
+	       
+	        
+		} catch (Exception e) {
+			 System.out.println("catch");
+		}
+		
+	}
+	public void logar(String conta, String senha) throws RemoteException, NotBoundException, ClassNotFoundException, SQLException {
+		
+		//ServiBanco b = new ServiBanco();
+		Registry registry = LocateRegistry.getRegistry( 20001);
+        
+        BancoRemoto stub = (BancoRemoto) registry.lookup("Banco");
+        System.out.println("foi");
+		try {
+			
+			System.out.println("LOGOU " + stub.logar(conta, senha));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			System.out.println("ERRO AO LOGAR" + e.getMessage());
+		}  
+	}
 }
 
-*/ 
+ 

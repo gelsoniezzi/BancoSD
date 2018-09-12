@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.SQLException;
 
 import Conec.conecDAO;
 import Conec.conexao;
@@ -11,7 +12,7 @@ import Conec.conexao;
 public class ServiBanco implements BancoRemoto {
 	
 	
-	/*
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -26,8 +27,8 @@ public class ServiBanco implements BancoRemoto {
 			
 			Registry registry = LocateRegistry.getRegistry(20001);
 			
-			/* O método bind é então chamado no stub do registro para vincular 
-			 * o stub do objeto remoto ao nome "Hello" no registro.
+			// O método bind é então chamado no stub do registro para vincular 
+			//o stub do objeto remoto ao nome "Hello" no registro.
 			
 			registry.bind("Banco", stub);
 
@@ -39,10 +40,12 @@ public class ServiBanco implements BancoRemoto {
 		}
 	}
 
-	*/
+	
 	
 	@Override
-	public boolean criarConta(String nome, int cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) throws RemoteException {
+	public void criarConta(String nome, String cpf, String end, String nascimento, String tel, String senha, double saldoC, double saldoP) throws RemoteException {
+		
+		System.out.println("servi banco antes criar conta");
 		
 		ContaCorrente conta = new ContaCorrente(nome,cpf, end, nascimento, tel, senha, saldoC, saldoP);
 		conecDAO c = null;
@@ -56,23 +59,41 @@ public class ServiBanco implements BancoRemoto {
 		
 		// TODO Auto-generated method stub
 		
-		return false;
+		
 	}
 	
 	@Override
-	public double deposito(String contalogada, Double valor, String tipo) throws RemoteException {
+	public double deposito(String contalogada, Double valor, String tipo) throws RemoteException, ClassNotFoundException {
 		// TODO Auto-generated method stub
+		conecDAO c = new conecDAO();
+		try {
+			c.deposito(contalogada, valor, tipo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERRO EM DEPOSITO: " + e.getMessage());
+		}
 		return 0;
 	}
 
 	@Override
-	public double transferencia(int cpfCli, int cpfDestinatario, double valorTransferencia, int tipoRemetente,
-			int tipoDestino) throws RemoteException {
+	public void transferencia(String cpfCli, String tipoconta, String cpfDestinatario, String tipoconta2, double valorTransferencia) throws RemoteException {
 		// TODO Auto-generated method stub
-		return 0;
+		transferencia(cpfCli, tipoconta, cpfDestinatario , tipoconta2 , valorTransferencia);
 	}
-
 	
+	@Override
+	public Double rendimento(String contaLogada, String tipoConta, int tempo) throws RemoteException {
+		// TODO Auto-generated method stub
+		return rendimento(contaLogada, tipoConta, tempo);
+	}
+	@Override
+	public String logar(String conta, String senha)throws RemoteException, ClassNotFoundException, SQLException {
+		System.out.println("logou");
+		conecDAO c = new conecDAO();
+		String resposta = c.logar(conta, senha);
+		return resposta;
+	}
 
 	@Override
 	public boolean criarRendaFixa() throws RemoteException {
@@ -81,17 +102,23 @@ public class ServiBanco implements BancoRemoto {
 	}
 
 
-
-
-	public void saque(String contalogada, double parseDouble, String tipo) throws RemoteException{
+	@Override
+	public void saque(String contalogada,  double valorSaque, String tipo) throws RemoteException, ClassNotFoundException{
 		// TODO Auto-generated method stub
-		
+		conecDAO c = new conecDAO();
+		try {
+			c.saque(contalogada, valorSaque, tipo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("ERRO EM SAQUE: " + e.getMessage());
+		}
 	}
 
 	@Override
 	public double saldo(String contalogada, String tipo) throws RemoteException {
 		// TODO Auto-generated method stub
-		return 0;
+		return saldo(contalogada, tipo);
 	}
 
 }

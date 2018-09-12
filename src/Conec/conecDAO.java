@@ -46,7 +46,7 @@ public void criarConta(ContaCorrente conta) {
 		
 		// seta os valores
 		stmt.setString(1,conta.getNomeCli());
-		stmt.setString(2,Integer.toString(conta.getCpfCli()));
+		stmt.setString(2,conta.getCpfCli());
 		stmt.setString(3,conta.getEnderecoCli());
 		stmt.setString(4,conta.getNascimentoCli());
 		stmt.setString(5,conta.getTelefoneCli());
@@ -68,7 +68,7 @@ public void saque(String contalogada, Double valor, String tipo) throws SQLExcep
 	Double saldoatual = 0.00; 
 	Double saldonovo = 0.00;
 	
-	  PreparedStatement stmt = this.connection.prepareStatement("select * from conta where copCli =" +contalogada);
+	  PreparedStatement stmt = this.connection.prepareStatement("select * from conta where cpfCli ='" +contalogada + "'");
 	  ResultSet rs = stmt.executeQuery();
 	
 	if (tipo == "corrente") {
@@ -117,7 +117,7 @@ public void deposito(String contalogada, Double valor, String tipo) throws SQLEx
 	Double saldoatual = 0.00; 
 	Double saldonovo = 0.00;
 	
-	  PreparedStatement stmt = this.connection.prepareStatement("select * from conta where copCli =" +contalogada);
+	  PreparedStatement stmt = this.connection.prepareStatement("select * from conta where copCli = '" +contalogada+ "'");
 	  ResultSet rs = stmt.executeQuery();
 	
 	if (tipo == "corrente") {
@@ -189,7 +189,7 @@ public void remove(String id) {
 		}
 	}
 
-public void tranferencia(String contaLogada, String tipoContaRemetente, String  contaReceptora , String tipoContaReceptora , double valorTransferido) throws ClassNotFoundException{
+public void transferencia(String contaLogada, String tipoContaRemetente, String  contaReceptora , String tipoContaReceptora , double valorTransferido) throws ClassNotFoundException{
 	try {
 		conecDAO c = new conecDAO();
 		if (c.saldo(contaLogada,tipoContaRemetente)>valorTransferido) {
@@ -202,9 +202,9 @@ public void tranferencia(String contaLogada, String tipoContaRemetente, String  
 		}
 	}
 
-public void rendimento(String contaLogada, String tipoConta, int tempo) throws SQLException, ClassNotFoundException {
+public double rendimento(String contaLogada, String tipoConta, int tempo) throws SQLException, ClassNotFoundException {
 	conecDAO c = new conecDAO();
-	double rendimento =0;
+	double rendimento =0.00;
 	rendimento=c.saldo(contaLogada, tipoConta);
 	for(int i = 0; i <tempo;i++) {
 			if(tipoConta == "poupanca") {
@@ -213,7 +213,27 @@ public void rendimento(String contaLogada, String tipoConta, int tempo) throws S
 				rendimento = rendimento * 1.015; 
 			}
 		}
+	return rendimento;
 	}
+
+public String logar(String conta, String senha) throws SQLException, ClassNotFoundException {
+	conecDAO c = new conecDAO();
+	PreparedStatement stmt = this.connection.prepareStatement("select * from conta where cpfCli ='" +conta + "'");
+	ResultSet rs = stmt.executeQuery();
+	
+	ContaCorrente cliente = new ContaCorrente();
+	
+	cliente.setSenhaCli(senha);
+	
+	
+	if (rs.getString("senhaCli") == cliente.getSenhaCli()) {
+		return conta; 
+	}else {
+		System.out.println("Senha ou login invalido");
+		return " ";
+	}		
+}
+	
 }
 
 
